@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Avaya Breeze ECC Demo</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- jQuery 2.0 -->
+    <script src="lib/http_code.jquery.com_jquery-2.0.0.js"></script>
+
+    <!-- Breeze Specific JavaScript -->
+    <script src="js/breeze.js"></script>
+
+</head>
+<body>
+
+    <div class="container">
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">Breeze Server Configuration</div>
+            <div class="panel-body">
+                <form>
+                    <div class="form-group">
+                        <label for="serverLocation">Server IP/Hostname of security module:</label>
+                        <input type="text" class="form-control" id="serverLocation" placeholder="breeze-dev.testdomain.yourcompany.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="stationA">Near-end Station:</label>
+                        <input type="number" class="form-control" id="stationA" placeholder="12345">
+                    </div>
+                    <div class="form-group">
+                        <label for="stationB">Far-end Station:</label>
+                        <input type="number" class="form-control" id="stationB" placeholder="54321">
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">Call Control</div>
+            <div class="panel-body">
+                <div class="container">
+                    <button class="btn btn-default"
+                            onclick="placePhoneCall(document.getElementById('stationA').value, document.getElementById('stationB').value, document.getElementById('serverLocation').value)">
+                        <span class="glyphicon glyphicon-earphone"></span> Place call</button>
+                    <button class="btn btn-default"
+                            onclick="getPhoneConnectionData(document.getElementById('stationA').value, document.getElementById('serverLocation').value)">
+                        <span class="glyphicon glyphicon-zoom-in"></span> Get Call Data</button>
+                    <button class="btn btn-default"><span class="glyphicon glyphicon-forward"></span> Transfer Call</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">Server Response</div>
+            <div class="panel-body">
+                <pre id="logArea"></pre>
+            </div>
+        </div>
+
+    </div>
+
+
+<script src="js/bootstrap.min.js"></script>
+</body>
+</html>
