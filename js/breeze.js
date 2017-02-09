@@ -2,6 +2,8 @@
  * Created by quetwo on 2/8/2017.
  *
  * This is provided as an example on how to use the Avaya ECC Component.  No warranty provided on this code.  Use at your own risk.
+ *
+ * This code is licensed under the Apache 2.0 License.  Please refer to the LICENSE file for more information.
  */
 
 function placePhoneCall(callFrom, callTo, serverIP)
@@ -35,6 +37,10 @@ function finishPlacePhoneCall(data)
 
 function getPhoneConnectionData(callFrom, serverIP)
 {
+    // the "get phone connection" has the breeze server query the AES server to find out of there are any active phone calls
+    // the AES server will only know about phones that are "watched", so it may return no results even though there is a call
+    // connected.  You will need to subscribe to events in order to get a guaranteed accurate picture.
+
     $.get( "http://" + serverIP + "/services/EngagementCallControl/addresses/" + callFrom + "/connections", finishGetPhoneConnectionData);
 }
 
@@ -46,8 +52,34 @@ function finishGetPhoneConnectionData(data)
     writeToServerResponseArea('Query was successful.\ncallId = ' + callId + '\nconnectionId = ' + connectionId);
 }
 
+function transferCall(callTo, serverIP)
+{
+    // this will transfer a call to another user.  We will assume we've done the "get call data" button and populated the
+    // callId and ConnectionID fields.  You can also get this from the events that are sent via a subscription (this is
+    // the preferred method).
+
+    $.ajax
+    (
+        {
+            type : "POST",
+            url  : "http://" + serverIP + "/services/EngagementCallControl/calls/" + callId + "/connections/" + connectionId + "?action=transfer",
+            data : "{transferTo:" + callTo + "}",
+            contentType: "application/json",
+            crossDomain: true,
+            xhrFields: {withCredentials: true},
+            success     : finishTransferCall
+        }
+    )
+}
+
+function finishTransferCall(data)
+{
+    console.log(data);
+    writeToServerResponseArea('Transfer is complete.');
+}
 
 
+// the following function is used to show the log on the screen.
 
 function writeToServerResponseArea(entry)
 {

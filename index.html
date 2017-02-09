@@ -15,6 +15,9 @@
     <!-- Breeze Specific JavaScript -->
     <script src="js/breeze.js"></script>
 
+    <!-- This code is licensed under the Apache 2.0 License.  See LICENSE for more details -->
+    <!-- Created on 1/2017 by Nick Kwiatkowski (quetwo). -->
+
 </head>
 <body>
 
@@ -50,7 +53,9 @@
                     <button class="btn btn-default"
                             onclick="getPhoneConnectionData(document.getElementById('stationA').value, document.getElementById('serverLocation').value)">
                         <span class="glyphicon glyphicon-zoom-in"></span> Get Call Data</button>
-                    <button class="btn btn-default"><span class="glyphicon glyphicon-forward"></span> Transfer Call</button>
+                    <button class="btn btn-default"
+                            onclick="transferCall(document.getElementById('stationB').value, document.getElementById('serverLocation').value)">
+                        <span class="glyphicon glyphicon-forward"></span> Transfer Call</button>
                 </div>
             </div>
         </div>
